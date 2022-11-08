@@ -55,3 +55,5 @@ render();
 
 setTimeout(handleAddItem,2000);
 setTimeout(handleRemoveItem, 4000);
+
+console.log(moment);
