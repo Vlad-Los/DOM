@@ -1,30 +1,13 @@
-const todoItemTemplate = ({id,text,isDone}) => `
-<li class="todo-item" data-id="${id}">
-            <input type="checkbox" name="todo-done"${isDone ? 'checked' : ''}/>
-            <span>${text}</span>
-            <button class="button delete">X</button>
-        </li>`;
+import todoItemTemplate from "./todoItemTemplate.js";
 
-const items = [
-    {
-        id: '1',
-        text: "lorem ipsum",
-        isDone: true,
-    },
-    {
-        id: '2',
-        text: "dfdldf nn",
-        isDone: true,
-    },
-    {
-        id: '3',
-        text: "nmkr nnr",
-        isDone: true,
-    },
-];
+import mockData from "./mockData.js";
+
+const items = mockData;
 
 const refs = {
     todoList: document.querySelector('.todo-list'),
+    form: document.querySelector(',form'),
+    sortBy: document.querySelector('.sort-by'),
 };
 
 const render = () => {
@@ -34,11 +17,11 @@ const render = () => {
     refs.todoList.insertAdjacentHTML('beforeend', list);
 };
 
-const handleAddItem = () =>{
+const AddItem = (text) =>{
     const newTodo = {
-        id: '1',
-        text: "lorem ipsum",
-        isDone: true,
+        id: uuid.v4(),
+        text,
+        isDone: false,
     };
     items.push(newTodo);
     render();
@@ -49,11 +32,13 @@ const handleRemoveItem = () => {
     render();
 };
 
-
+const handleSubmit =(e) => {
+    e.preventDefault();
+    addItem(e.target.elements.text.value);
+}
 
 render();
 
-setTimeout(handleAddItem,2000);
-setTimeout(handleRemoveItem, 4000);
 
-console.log(moment);
+// ------------ event listeners--------
+refs.form.addEventListener('submit',handleSubmit);
